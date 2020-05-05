@@ -9,6 +9,7 @@ const PatientSchema = new mongoose.Schema({
     bairro: { type: String, require: true },
     cidade: { type: String, require: true },
     uf: { type: String, require: true },
+    cep:{ type: String, require: true },
     cpf: { type: String, require: true },
     email: { type: String, require: true },
     datanascimento: { type: String, require: true },

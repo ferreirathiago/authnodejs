@@ -1,7 +1,7 @@
 const express = require('express');
 const authMiddleware = require('../middlewares/auth');
 
-const Doctor = require('../models/Doctor');
+const Patient = require('../models/Patient');
 const User = require('../models/User');
 
 const router = express.Router();
@@ -34,20 +34,18 @@ router.post('/', async(req,res) => {
     try {
         const { nome, genero, logradouro, bairro,
             cidade, uf, cpf, email, datanascimento, 
-            assinatura, convenio, profissao, telefone, 
-            crm, rqe, especialidade } = req.body;
+            assinatura, convenio, profissao, telefone } = req.body;
         
         
-        const doctor = await Doctor.create({ nome, 
+        const patient = await Doctor.create({ nome, 
             genero, logradouro, bairro,
             cidade, uf, cpf, email, datanascimento, 
-            assinatura, convenio, profissao, telefone, 
-            crm, rqe, especialidade, user:req.userId });
+            assinatura, convenio, profissao, telefone, user:req.userId });
 
 
         await doctor.save();
 
-        return res.send({ doctor });
+        return res.send({ patient });
 
     } catch (err) {
         console.log(err)
@@ -73,5 +71,5 @@ router.delete('/:projectId', async(req,res) => {
 */
 
 
-module.exports = app => app.use('/doctor', router)
+module.exports = app => app.use('/patient', router)
 
