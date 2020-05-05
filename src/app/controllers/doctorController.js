@@ -1,12 +1,12 @@
 const express = require('express');
-const authMiddleware = require('../middlewares/auth');
+//const authMiddleware = require('../middlewares/auth');
 
 const Doctor = require('../models/Doctor');
 const User = require('../models/User');
 
 const router = express.Router();
 
-router.use(authMiddleware);
+//router.use(authMiddleware);
 
 /*router.get('/', async (req, res) => {
     try {
@@ -33,16 +33,14 @@ router.get('/:projectId', async(req,res) => {
 router.post('/', async(req,res) => {
     try {
         const { nome, genero, logradouro, bairro,
-            cidade, uf, cpf, email, datanascimento, 
-            assinatura, convenio, profissao, telefone, 
-            crm, rqe, especialidade } = req.body;
+            cidade, uf, cep, cpf, email, datanascimento, 
+            assinatura, telefone, crm, rqe, especialidade } = req.body;
         
         
         const doctor = await Doctor.create({ nome, 
             genero, logradouro, bairro,
-            cidade, uf, cpf, email, datanascimento, 
-            assinatura, convenio, profissao, telefone, 
-            crm, rqe, especialidade, user:req.userId });
+            cidade, uf, cep, cpf, email, datanascimento, 
+            assinatura, telefone, crm, rqe, especialidade, user:req.userId });
 
 
         await doctor.save();
@@ -51,7 +49,7 @@ router.post('/', async(req,res) => {
 
     } catch (err) {
         console.log(err)
-        return res.status(400).send({ error: 'Error creating new project' })
+        return res.status(400).send({ error: 'Error creating new Doctor' })
     }
     
 }) 

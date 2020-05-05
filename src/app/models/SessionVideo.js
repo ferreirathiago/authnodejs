@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 
 
 const SessionVideoSchema = new mongoose.Schema({
-    nome: { type:String, require: true },
     sessionId: { type:String, require: true },
     sessionDate: { type:Date, require: true },
     sessionTime: { type:String, require: true },
@@ -17,7 +16,7 @@ const SessionVideoSchema = new mongoose.Schema({
     },
     doctorId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Patient',
+        ref: 'Doctor',
         require: true,
     },
 

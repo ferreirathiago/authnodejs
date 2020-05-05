@@ -1,25 +1,25 @@
 const express = require('express');
 //const authMiddleware = require('../middlewares/auth');
 
-const Patient = require('../models/Patient');
+const SessionVideo = require('../models/SessionVideo');
 const User = require('../models/User');
 
 const router = express.Router();
 
 //router.use(authMiddleware);
 
-/*router.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const projects = await Project.find().populate('user');
+        const sessions = await SessionVideo.find();//.populate('user');
 
-        return res.send({projects});
+        return res.send({sessions});
 
     } catch (err) {
-        return res.status(400).send({ error: 'Error loading projects'})
+        return res.status(400).send({ error: 'Error loading sessionVideo'})
     }
 });
 
-router.get('/:projectId', async(req,res) => {
+/*router.get('/:projectId', async(req,res) => {
     try {
         const project = await Project.findById(req.params.projectId).populate('user');
 
@@ -32,24 +32,21 @@ router.get('/:projectId', async(req,res) => {
 */
 router.post('/', async(req,res) => {
     try {
-        const { nome, genero, logradouro, bairro, cidade, 
-            uf, cep, cpf, email, datanascimento, assinatura, 
-            convenio, profissao, telefone, estadocivil } = req.body;
+        const { sessionId, sessionDate, sessionTime, anamnese, prescription } = req.body;
         
         
-        const patient = await Patient.create({ nome, 
-            genero, logradouro, bairro, cidade, uf, cep, 
-            cpf, email, datanascimento, assinatura, convenio, 
-            profissao, telefone, estadocivil, user:req.userId });
+        const sessionVideo = await SessionVideo.create({  
+            sessionId, sessionDate, sessionTime, anamnese, prescription,
+            patientId: req.userId, doctorId:req.userId });
 
 
-        await patient.save();
+        await sessionVideo.save();
 
-        return res.send({ patient });
+        return res.send({ sessionVideo });
 
     } catch (err) {
         console.log(err)
-        return res.status(400).send({ error: 'Error creating new Patient' })
+        return res.status(400).send({ error: 'Error creating new Session Video' })
     }
     
 }) 
@@ -71,5 +68,5 @@ router.delete('/:projectId', async(req,res) => {
 */
 
 
-module.exports = app => app.use('/patient', router)
+module.exports = app => app.use('/sessionvideo', router)
 
